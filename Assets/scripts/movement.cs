@@ -7,6 +7,7 @@ public class movement : MonoBehaviour
     public Rigidbody rb;
     public float forwardForce = 2000f;
     public float sidewaysForce = 500f;
+    public float jumpForce = 5f;
     // Start is called before the first frame update
     void Start(){
 
@@ -26,7 +27,12 @@ public class movement : MonoBehaviour
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
-        if(rb.position.y < -1f)
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+        if (rb.position.y < -1f)
         {
             FindObjectOfType<GameManager>().EndGame();
 
